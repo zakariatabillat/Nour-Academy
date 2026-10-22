@@ -1,13 +1,386 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="FR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NourAcademy</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap">
 
 </head>
 <body>
+<main>
+    <nav class="navbar">
+        <div class="symbols">
+            <a href="index.html"><img  class="logo1" src="assets/logo.svg" alt="Nour academy logo"></a>
+            <a id="nouracademy1" href="index.html">Nour academy</a>
+        </div>
+        <div class="links1">
+            <a class="" href="">cours</a>
+            <a href="">Inscription</a>
+        </div>
+    </nav>
+    <section class="content">
+    <div>
+        <h1>Inscrivez votre enfant en quelques minutes</h1>
+    </div>
+    <div>
+        <p id="sous-p">Du primaire au Bac. Tout se fait sur cette page.</p>
+    </div>
+    <ol class="links2">
+        <li><a href="#cours"><span>1</span>Choisir des cours</a></li>
+        <li><a href="#dossier"><span>2</span>Remplir le dossier, vérifié à la saisie</a></li>
+        <li><a href="#recap"><span>3</span>Recevoir le récapitulatif</a></li>
+    </ol>
+</section>
+<section class="cours" id="cours">
+  <h2>1. Choisir des cours</h2>
+
+  <div class="filtres">
+    <div class="champ">
+      <label for="filtre-niveau">Niveau de l'élève</label>
+      <select id="filtre-niveau">
+        <option value="">Tous les niveaux</option>
+        <optgroup label="Primaire">
+          <option value="1ap">1re année primaire</option>
+          <option value="2ap">2e année primaire</option>
+          <option value="3ap">3e année primaire</option>
+          <option value="4ap">4e année primaire</option>
+          <option value="5ap">5e année primaire</option>
+          <option value="6ap">6e année primaire</option>
+        </optgroup>
+        <optgroup label="Collège">
+          <option value="1ac">1re année collège</option>
+          <option value="2ac">2e année collège</option>
+          <option value="3ac">3e année collège</option>
+        </optgroup>
+        <optgroup label="Lycée">
+          <option value="tc">Tronc commun</option>
+          <option value="1bac">1re année Bac</option>
+          <option value="2bac" selected>2e année Bac</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="champ">
+      <label for="filtre-matiere">Matière</label>
+      <select id="filtre-matiere">
+        <option value="">Toutes les matières</option>
+        <option value="maths">Mathématiques</option>
+        <option value="pc">Physique-Chimie</option>
+        <option value="svt">SVT</option>
+        <option value="fr">Français</option>
+        <option value="en">Anglais</option>
+      </select>
+    </div>
+  </div>
+  <p class="resultats">3 cours en 2e année Bac</p>
+
+<div class="cartes">
+  <article class="carte">
+    <div class="tags">
+      <span class="tag">Mathématiques</span>
+      <span class="tag">2e année Bac</span>
+    </div>
+    <h3>Mathématiques — préparation Bac</h3>
+    <ul class="infos">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Lun. et mer. · 18h–20h
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>
+        6 places restantes
+      </li>
+    </ul>
+    <div class="bas">
+      <p class="prix">350 MAD / mois</p>
+      <button class="btn" type="button">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        Ajouter
+      </button>
+    </div>
+  </article>
+
+  <article class="carte carte--ajoutee">
+    <div class="tags">
+      <span class="tag">Anglais</span>
+      <span class="tag">2e année Bac</span>
+      <span class="tag tag--selection">Dans ma sélection</span>
+    </div>
+    <h3>Anglais — préparation Bac</h3>
+    <ul class="infos">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Samedi · 14h–16h
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>
+        1 place restante
+      </li>
+    </ul>
+    <div class="bas">
+      <p class="prix">250 MAD / mois</p>
+      <button class="btn btn--ajoute" type="button" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        Ajouté
+      </button>
+    </div>
+  </article>
+
+  <article class="carte carte--complet">
+    <div class="tags">
+      <span class="tag">Physique-Chimie</span>
+      <span class="tag">2e année Bac</span>
+    </div>
+    <h3>Physique-Chimie — préparation Bac</h3>
+    <ul class="infos">
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Mar. et jeu. · 18h–20h
+      </li>
+      <li>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6 6 0 0 1 3.5 6"/></svg>
+        Aucune place restante
+      </li>
+    </ul>
+    <div class="bas">
+      <p class="prix">350 MAD / mois</p>
+      <button class="btn btn--complet" type="button" disabled>Complet</button>
+    </div>
+  </article>
+</div>
+
+<div class="aucun-resultat">
+  <p class="aucun-titre">Aucun cours ne correspond à ces filtres.</p>
+  <p>Essayez une autre matière ou un autre niveau.</p>
+</div>
+<div class="selection" id="selection">
+  <div class="selection-haut">
+    <h3>Ma sélection</h3>
+    <p>2 cours</p>
+  </div>
+
+  <ul class="selection-liste">
+    <li class="selection-ligne">
+      <div>
+        <p class="selection-titre">Mathématiques — préparation Bac</p>
+        <p class="selection-detail">2e année Bac · 350 MAD / mois</p>
+      </div>
+      <button class="btn-retirer" type="button">Retirer</button>
+    </li>
+    <li class="selection-ligne">
+      <div>
+        <p class="selection-titre">Anglais — préparation Bac</p>
+        <p class="selection-detail">2e année Bac · 250 MAD / mois</p>
+      </div>
+      <button class="btn-retirer" type="button">Retirer</button>
+    </li>
+  </ul>
+
+  <div class="selection-total">
+    <p>Total mensuel</p>
+    <p class="selection-montant">600 MAD / mois</p>
+  </div>
+
+  <a class="btn-continuer" href="#dossier">Continuer vers l'inscription</a>
+</div>
+
+<div class="selection">
+  <div class="selection-haut">
+    <h3>Ma sélection</h3>
+    <p>0 cours</p>
+  </div>
+  <p class="selection-vide">Votre sélection est vide. Ajoutez un ou plusieurs cours ci-dessus.</p>
+</div>
+</section>
+<section class="dossier" id="dossier">
+  <h2>2. Remplir le dossier</h2>
+
+  <div class="rappel">
+    <div>
+      <p class="rappel-label">Ma sélection</p>
+      <p class="rappel-valeur">2 cours · 600 MAD / mois</p>
+    </div>
+    <a href="#selection">Modifier</a>
+  </div>
+
+  <p class="obligatoire">Tous les champs sont obligatoires.</p>
+
+  <form class="formulaire" novalidate>
+    <fieldset>
+      <legend>Le parent</legend>
+
+      <div class="champ-form champ-valide">
+        <label for="parent">Nom et prénom du parent</label>
+        <input id="parent" type="text" autocomplete="name" value="Fatima Ouali">
+        <p class="message">✓ Nom valide.</p>
+      </div>
+
+      <div class="champ-form">
+        <label for="email">Email</label>
+        <p class="aide">Exemple : nom@gmail.com</p>
+        <input id="email" type="email" autocomplete="email">
+      </div>
+
+      <div class="champ-form champ-erreur">
+        <label for="tel">Téléphone mobile</label>
+        <p class="aide">06 ou 07 suivi de 8 chiffres, ou +212 6 / +212 7 suivi de 8 chiffres</p>
+        <input id="tel" type="tel" autocomplete="tel" value="06 12 34 5">
+        <p class="message">Il manque 3 chiffres.</p>
+      </div>
+    </fieldset>
+
+    <fieldset class="bloc-eleve">
+      <legend>L'élève</legend>
+
+      <div class="champ-form champ-valide">
+        <label for="prenom">Prénom de l'élève</label>
+        <input id="prenom" type="text" value="Yassine">
+        <p class="message">✓ Prénom valide.</p>
+      </div>
+
+      <div class="champ-form">
+        <label for="niveau">Niveau de l'élève</label>
+        <select id="niveau">
+          <option value="">Choisir le niveau</option>
+          <optgroup label="Primaire">
+            <option value="1ap">1re année primaire</option>
+            <option value="2ap">2e année primaire</option>
+            <option value="3ap">3e année primaire</option>
+            <option value="4ap">4e année primaire</option>
+            <option value="5ap">5e année primaire</option>
+            <option value="6ap">6e année primaire</option>
+          </optgroup>
+          <optgroup label="Collège">
+            <option value="1ac">1re année collège</option>
+            <option value="2ac">2e année collège</option>
+            <option value="3ac">3e année collège</option>
+          </optgroup>
+          <optgroup label="Lycée">
+            <option value="tc">Tronc commun</option>
+            <option value="1bac">1re année Bac</option>
+            <option value="2bac">2e année Bac</option>
+          </optgroup>
+        </select>
+      </div>
+    </fieldset>
+  </form>
+  <fieldset>
+  <legend>Votre compte</legend>
+
+  <div class="champ-form champ-erreur">
+    <div class="label-ligne">
+      <label for="mdp">Mot de passe</label>
+      <button class="btn-afficher" type="button">Afficher</button>
+    </div>
+    <ul class="regles">
+      <li class="regle-ok">✓ Au moins 8 caractères</li>
+      <li class="regle-ok">✓ Une lettre majuscule</li>
+      <li class="regle-ok">✓ Un chiffre</li>
+      <li>○ Un caractère spécial (ex. ! ? @ #)</li>
+    </ul>
+    <input id="mdp" type="password" autocomplete="new-password" value="Nour2026">
+    <p class="message">Il manque : un caractère spécial.</p>
+  </div>
+
+  <div class="champ-form">
+    <label for="mdp2">Confirmer le mot de passe</label>
+    <input id="mdp2" type="password" autocomplete="new-password">
+  </div>
+</fieldset>
+
+<div class="champ-form">
+  <label class="consentement" for="consent">
+    <input id="consent" type="checkbox">
+    <span>J'accepte que Nour Academy utilise ces informations pour traiter l'inscription de mon enfant.</span>
+  </label>
+</div>
+
+<div class="resume-erreurs">
+  <p class="resume-titre">Dossier non envoyé : 3 points à corriger</p>
+  <ul>
+    <li><a href="#tel">Téléphone mobile</a></li>
+    <li><a href="#mdp">Mot de passe</a></li>
+    <li><a href="#consent">Consentement</a></li>
+  </ul>
+</div>
+
+<button class="btn-envoyer" type="submit">Envoyer le dossier</button>
+</section>
+<section class="recap" id="recap">
+  <h2>3. Récapitulatif</h2>
+  <p class="recap-intro">Aperçu : ce récapitulatif s'affiche après l'envoi.</p>
+
+  <div class="recap-carte">
+    <div class="recap-haut">
+      <span class="recap-icone">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </span>
+      <div>
+        <p class="recap-titre">Dossier complet et envoyé</p>
+        <p class="recap-numero">N° de dossier : <strong>NA-2026-000000</strong></p>
+      </div>
+    </div>
+
+    <dl class="recap-liste">
+      <div class="recap-ligne">
+        <dt>Élève</dt>
+        <dd>Yassine · 2e année Bac</dd>
+      </div>
+      <div class="recap-ligne">
+        <dt>Cours</dt>
+        <dd>Mathématiques + Anglais</dd>
+      </div>
+      <div class="recap-ligne">
+        <dt>Total</dt>
+        <dd>600 MAD / mois</dd>
+      </div>
+    </dl>
+
+    <button class="btn-enregistrer" type="button">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+      Enregistrer le récapitulatif
+    </button>
+  </div>
+</section>
+<footer class="footer">
+  <p class="footer-titre">Besoin d'aide ?</p>
+  <p>Appelez le secrétariat : [TÉLÉPHONE]</p>
+  <div class="footer-centres">
+    <p class="footer-titre">Nos centres</p>
+    <p>Nador Centre · Hay Al Matar · Selouane</p>
+  </div>
+  <p class="footer-copy">© Nour Academy</p>
+</footer>
+
+   
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120" role="img" aria-label="Nour Academy">
+<path d="M34 112V66A32 32 0 1 1 86 66V112Z" fill="#0B4F6C"/>
+<path d="M44 112V68A22 22 0 1 1 76 68V112Z" fill="#FFFFFF"/>
+<circle cx="60" cy="63" r="9" fill="#F7B955"/>
+<rect x="53" y="89" width="14" height="5" rx="1" fill="#0B4F6C"/>
+<rect x="50" y="96" width="20" height="6" rx="1" fill="#0B4F6C"/>
+<rect x="47" y="104" width="26" height="8" rx="1" fill="#0B4F6C"/>
+<rect x="24" y="111" width="72" height="6" rx="3" fill="#0B4F6C"/>
+</svg>
