@@ -80,7 +80,7 @@
     </div>
   </div>
 
-  <p class="resultats">3 cours en 2e année Bac</p>
+  <p class="resultats"></p>
 
   <div class="cartes"></div>
 
@@ -114,44 +114,45 @@
   <div class="rappel">
     <div>
       <p class="rappel-label">Ma sélection</p>
-      <p class="rappel-valeur">2 cours · 600 MAD / mois</p>
+      <p class="rappel-valeur">0 cours · 0 MAD / mois</p>
     </div>
     <a href="#selection">Modifier</a>
   </div>
 
   <p class="obligatoire">Tous les champs sont obligatoires.</p>
 
-  <form class="formulaire" novalidate>
+  <form id="formulaire" class="formulaire" novalidate>
     <fieldset>
       <legend>Le parent</legend>
 
-      <div class="champ-form champ-valide">
+      <div class="champ-form">
         <label for="parent">Nom et prénom du parent</label>
-        <input id="parent" type="text" autocomplete="name" value="Fatima Ouali">
-        <p class="message">✓ Nom valide.</p>
+        <input id="parent" type="text" autocomplete="name">
+        <p class="message" aria-live="polite"></p>
       </div>
 
       <div class="champ-form">
         <label for="email">Email</label>
-        <p class="aide">Exemple : nom@gmail.com</p>
-        <input id="email" type="email" autocomplete="email">
+        <p class="aide" id="email-aide">Exemple : nom@gmail.com</p>
+        <input id="email" type="email" autocomplete="email" aria-describedby="email-aide">
+        <p class="message" aria-live="polite"></p>
       </div>
 
-      <div class="champ-form champ-erreur">
+      <div class="champ-form">
         <label for="tel">Téléphone mobile</label>
-        <p class="aide">06 ou 07 suivi de 8 chiffres, ou +212 6 / +212 7 suivi de 8 chiffres</p>
-        <input id="tel" type="tel" autocomplete="tel" value="06 12 34 5">
-        <p class="message">Il manque 3 chiffres.</p>
+        <p class="aide" id="tel-aide">06 ou 07 suivi de 8 chiffres, ou +212 6 / +212 7 suivi de 8 chiffres</p>
+        <input id="tel" type="tel" autocomplete="tel" aria-describedby="tel-aide">
+        <p class="message" aria-live="polite"></p>
       </div>
     </fieldset>
 
     <fieldset class="bloc-eleve">
       <legend>L'élève</legend>
 
-      <div class="champ-form champ-valide">
+      <div class="champ-form">
         <label for="prenom">Prénom de l'élève</label>
-        <input id="prenom" type="text" value="Yassine">
-        <p class="message">✓ Prénom valide.</p>
+        <input id="prenom" type="text">
+        <p class="message" aria-live="polite"></p>
       </div>
 
       <div class="champ-form">
@@ -177,30 +178,32 @@
             <option value="2bac">2e année Bac</option>
           </optgroup>
         </select>
+        <p class="message" aria-live="polite"></p>
       </div>
     </fieldset>
 
     <fieldset>
       <legend>Votre compte</legend>
 
-      <div class="champ-form champ-erreur">
+      <div class="champ-form">
         <div class="label-ligne">
           <label for="mdp">Mot de passe</label>
           <button class="btn-afficher" type="button">Afficher</button>
         </div>
-        <ul class="regles">
-          <li class="regle-ok">✓ Au moins 8 caractères</li>
-          <li class="regle-ok">✓ Une lettre majuscule</li>
-          <li class="regle-ok">✓ Un chiffre</li>
-          <li>○ Un caractère spécial (ex. ! ? @ #)</li>
+        <ul class="regles" id="mdp-regles">
+          <li data-regle="longueur">○ Au moins 8 caractères</li>
+          <li data-regle="majuscule">○ Une lettre majuscule</li>
+          <li data-regle="chiffre">○ Un chiffre</li>
+          <li data-regle="special">○ Un caractère spécial (ex. ! ? @ #)</li>
         </ul>
-        <input id="mdp" type="password" autocomplete="new-password" value="Nour2026">
-        <p class="message">Il manque : un caractère spécial.</p>
+        <input id="mdp" type="password" autocomplete="new-password" aria-describedby="mdp-regles">
+        <p class="message" aria-live="polite"></p>
       </div>
 
       <div class="champ-form">
         <label for="mdp2">Confirmer le mot de passe</label>
         <input id="mdp2" type="password" autocomplete="new-password">
+        <p class="message" aria-live="polite"></p>
       </div>
     </fieldset>
 
@@ -209,24 +212,20 @@
         <input id="consent" type="checkbox">
         <span>J'accepte que Nour Academy utilise ces informations pour traiter l'inscription de mon enfant.</span>
       </label>
+      <p class="message" aria-live="polite"></p>
     </div>
 
-    <div class="resume-erreurs">
-      <p class="resume-titre">Dossier non envoyé : 3 points à corriger</p>
-      <ul>
-        <li><a href="#tel">Téléphone mobile</a></li>
-        <li><a href="#mdp">Mot de passe</a></li>
-        <li><a href="#consent">Consentement</a></li>
-      </ul>
+    <div class="resume-erreurs" hidden>
+      <p class="resume-titre"></p>
+      <ul></ul>
     </div>
 
     <button class="btn-envoyer" type="submit">Envoyer le dossier</button>
   </form>
 </section>
 
-<section class="recap" id="recap">
+<section class="recap" id="recap" hidden>
   <h2>3. Récapitulatif</h2>
-  <p class="recap-intro">Aperçu : ce récapitulatif s'affiche après l'envoi.</p>
 
   <div class="recap-carte">
     <div class="recap-haut">
@@ -235,22 +234,22 @@
       </span>
       <div>
         <p class="recap-titre">Dossier complet et envoyé</p>
-        <p class="recap-numero">N° de dossier : <strong>NA-2026-000000</strong></p>
+        <p class="recap-numero">N° de dossier : <strong id="recap-numero"></strong></p>
       </div>
     </div>
 
     <dl class="recap-liste">
       <div class="recap-ligne">
         <dt>Élève</dt>
-        <dd>Yassine · 2e année Bac</dd>
+        <dd id="recap-eleve"></dd>
       </div>
       <div class="recap-ligne">
         <dt>Cours</dt>
-        <dd>Mathématiques + Anglais</dd>
+        <dd id="recap-cours"></dd>
       </div>
       <div class="recap-ligne">
         <dt>Total</dt>
-        <dd>600 MAD / mois</dd>
+        <dd id="recap-total"></dd>
       </div>
     </dl>
 

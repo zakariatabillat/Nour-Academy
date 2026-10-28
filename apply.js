@@ -182,3 +182,291 @@ selectionListe.addEventListener("click", function (event) {
   afficherSelection();
   filtrer();
 });
+
+// ===== Formulaire =====
+
+// Étape 1 : les règles de validation
+const regexNom = /^[A-Za-zÀ-ÿ'-]+(\s+[A-Za-zÀ-ÿ'-]+)+$/;
+const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const regexTel = /^(0|\+212)[67]\d{8}$/;
+const regexLettres = /^[A-Za-zÀ-ÿ'\s-]+$/;
+const regexMdp = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+
+// Étape 2 : l'affichage des états (erreur / succès)
+function afficherErreur(champ, texte) {
+  const bloc = champ.closest(".champ-form");
+  const message = bloc.querySelector(".message");
+
+  bloc.classList.remove("champ-valide");
+  bloc.classList.add("champ-erreur");
+  champ.setAttribute("aria-invalid", "true");
+  message.textContent = texte;
+}
+
+function afficherSucces(champ, texte) {
+  const bloc = champ.closest(".champ-form");
+  const message = bloc.querySelector(".message");
+
+  bloc.classList.remove("champ-erreur");
+  bloc.classList.add("champ-valide");
+  champ.setAttribute("aria-invalid", "false");
+  message.textContent = "✓ " + texte;
+}
+
+// Étape 3 : valider le nom du parent et l'email
+const champParent = document.querySelector("#parent");
+const champEmail = document.querySelector("#email");
+
+function validerParent() {
+  const valeur = champParent.value.trim();
+
+  if (valeur === "") {
+    afficherErreur(champParent, "Le nom et le prénom sont obligatoires.");
+    return false;
+  }
+  if (!regexLettres.test(valeur)) {
+    afficherErreur(champParent, "Utilisez uniquement des lettres.");
+    return false;
+  }
+  if (!regexNom.test(valeur)) {
+    afficherErreur(champParent, "Indiquez le nom et le prénom.");
+    return false;
+  }
+
+  afficherSucces(champParent, "Nom valide.");
+  return true;
+}
+
+function validerEmail() {
+  const valeur = champEmail.value.trim();
+
+  if (valeur === "") {
+    afficherErreur(champEmail, "L'email est obligatoire.");
+    return false;
+  }
+  if (!valeur.includes("@")) {
+    afficherErreur(champEmail, "Il manque le @.");
+    return false;
+  }
+  if (!regexEmail.test(valeur)) {
+    afficherErreur(champEmail, "Vérifiez l'adresse. Exemple : nom@gmail.com");
+    return false;
+  }
+
+  afficherSucces(champEmail, "Email valide.");
+  return true;
+}
+
+// Étape 4 : valider le téléphone
+const champTel = document.querySelector("#tel");
+
+function texteChiffres(nombre) {
+  if (nombre === 1) {
+    return "1 chiffre";
+  }
+  return nombre + " chiffres";
+}
+
+function validerTel() {
+  const valeur = champTel.value.replace(/[\s.-]/g, "");
+
+  if (valeur === "") {
+    afficherErreur(champTel, "Le numéro est obligatoire.");
+    return false;
+  }
+  if (!/^\+?\d+$/.test(valeur)) {
+    afficherErreur(champTel, "Utilisez uniquement des chiffres.");
+    return false;
+  }
+
+  let reste = "";
+  if (valeur.startsWith("+212")) {
+    reste = valeur.slice(4);
+  } else if (valeur.startsWith("0")) {
+    reste = valeur.slice(1);
+  } else {
+    afficherErreur(champTel, "Le numéro doit commencer par 06, 07 ou +212.");
+    return false;
+  }
+
+  if (reste !== "" && reste[0] !== "6" && reste[0] !== "7") {
+    afficherErreur(champTel, "Après le 0 ou le +212, il faut un 6 ou un 7.");
+    return false;
+  }
+
+  const manque = 9 - reste.length;
+  if (manque > 0) {
+    afficherErreur(champTel, "Il manque " + texteChiffres(manque) + ".");
+    return false;
+  }
+  if (manque < 0) {
+    afficherErreur(champTel, "Il y a " + texteChiffres(-manque) + " en trop.");
+    return false;
+  }
+
+  if (!regexTel.test(valeur)) {
+    afficherErreur(champTel, "Numéro invalide.");
+    return false;
+  }
+
+  afficherSucces(champTel, "Numéro valide.");
+  return true;
+}
+
+// Étape 5 : valider pendant la saisie (parent)
+champParent.addEventListener("input", validerParent);
+champEmail.addEventListener("input", validerEmail);
+champTel.addEventListener("input", validerTel);
+
+champParent.addEventListener("blur", validerParent);
+champEmail.addEventListener("blur", validerEmail);
+champTel.addEventListener("blur", validerTel);
+
+// Étape 6 : valider l'élève
+const champPrenom = document.querySelector("#prenom");
+const champNiveau = document.querySelector("#niveau");
+
+function validerPrenom() {
+  const valeur = champPrenom.value.trim();
+
+  if (valeur === "") {
+    afficherErreur(champPrenom, "Le prénom de l'élève est obligatoire.");
+    return false;
+  }
+  if (!regexLettres.test(valeur)) {
+    afficherErreur(champPrenom, "Utilisez uniquement des lettres.");
+    return false;
+  }
+  if (valeur.length < 2) {
+    afficherErreur(champPrenom, "Le prénom est trop court.");
+    return false;
+  }
+
+  afficherSucces(champPrenom, "Prénom valide.");
+  return true;
+}
+
+function validerNiveau() {
+  if (champNiveau.value === "") {
+    afficherErreur(champNiveau, "Choisissez le niveau de l'élève.");
+    return false;
+  }
+
+  afficherSucces(champNiveau, "Niveau choisi.");
+  return true;
+}
+
+champPrenom.addEventListener("input", validerPrenom);
+champPrenom.addEventListener("blur", validerPrenom);
+
+champNiveau.addEventListener("change", validerNiveau);
+champNiveau.addEventListener("blur", validerNiveau);
+
+// Étape 7 : le mot de passe et sa confirmation
+const champMdp = document.querySelector("#mdp");
+const champMdp2 = document.querySelector("#mdp2");
+const reglesMdp = document.querySelectorAll(".regles li");
+
+const testsMdp = {
+  longueur: /.{8,}/,
+  majuscule: /[A-Z]/,
+  chiffre: /\d/,
+  special: /[^A-Za-z0-9]/
+};
+
+const textesManquants = {
+  longueur: "au moins 8 caractères",
+  majuscule: "une majuscule",
+  chiffre: "un chiffre",
+  special: "un caractère spécial"
+};
+
+function validerMdp() {
+  const valeur = champMdp.value;
+  const manquants = [];
+
+  for (const li of reglesMdp) {
+    const regle = li.dataset.regle;
+    const texte = li.textContent.slice(2);
+
+    if (testsMdp[regle].test(valeur)) {
+      li.classList.add("regle-ok");
+      li.textContent = "✓ " + texte;
+    } else {
+      li.classList.remove("regle-ok");
+      li.textContent = "○ " + texte;
+      manquants.push(textesManquants[regle]);
+    }
+  }
+
+  if (valeur === "") {
+    afficherErreur(champMdp, "Le mot de passe est obligatoire.");
+    return false;
+  }
+  if (manquants.length > 0) {
+    afficherErreur(champMdp, "Il manque : " + manquants.join(", ") + ".");
+    return false;
+  }
+  if (!regexMdp.test(valeur)) {
+    afficherErreur(champMdp, "Mot de passe invalide.");
+    return false;
+  }
+
+  afficherSucces(champMdp, "Mot de passe sécurisé.");
+  return true;
+}
+
+function validerMdp2() {
+  const valeur = champMdp2.value;
+
+  if (valeur === "") {
+    afficherErreur(champMdp2, "Confirmez le mot de passe.");
+    return false;
+  }
+  if (valeur !== champMdp.value) {
+    afficherErreur(champMdp2, "Les deux mots de passe ne correspondent pas.");
+    return false;
+  }
+
+  afficherSucces(champMdp2, "Les mots de passe correspondent.");
+  return true;
+}
+
+champMdp.addEventListener("input", function () {
+  validerMdp();
+  if (champMdp2.value !== "") {
+    validerMdp2();
+  }
+});
+champMdp.addEventListener("blur", validerMdp);
+
+champMdp2.addEventListener("input", validerMdp2);
+champMdp2.addEventListener("blur", validerMdp2);
+// Étape 8 : afficher / masquer le mot de passe
+const btnAfficher = document.querySelector(".btn-afficher");
+
+btnAfficher.addEventListener("click", function () {
+  if (champMdp.type === "password") {
+    champMdp.type = "text";
+    btnAfficher.textContent = "Masquer";
+    btnAfficher.setAttribute("aria-pressed", "true");
+  } else {
+    champMdp.type = "password";
+    btnAfficher.textContent = "Afficher";
+    btnAfficher.setAttribute("aria-pressed", "false");
+  }
+});
+// Étape 9 : le consentement
+const champConsent = document.querySelector("#consent");
+
+function validerConsent() {
+  if (!champConsent.checked) {
+    afficherErreur(champConsent, "Cochez cette case pour envoyer le dossier.");
+    return false;
+  }
+
+  afficherSucces(champConsent, "Consentement donné.");
+  return true;
+}
+
+champConsent.addEventListener("change", validerConsent);

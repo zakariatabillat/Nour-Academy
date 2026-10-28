@@ -741,4 +741,12 @@ h1 {
 .recap-carte {
   max-width: 560px;
 }
+[hidden] { display: none !important; }
+.champ-erreur .consentement {
+  border: 3px solid #F7B955;
+}
+
+.champ-valide .consentement {
+  border-color: #0B4F6C;
+}
 
