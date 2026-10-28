@@ -750,3 +750,27 @@ h1 {
   border-color: #0B4F6C;
 }
 
+/* Récapitulatif en popup */
+.recap-dialog {
+  width: min(560px, calc(100% - 32px));
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: 16px;
+  background: #FFFFFF;
+  color: #0B4F6C;
+}
+
+.recap-dialog::backdrop {
+  background: rgba(4, 22, 30, 0.6);
+}
+
+.btn-fermer {
+  min-height: 44px;
+  border: none;
+  background: none;
+  color: #0B4F6C;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -224,16 +224,14 @@
   </form>
 </section>
 
-<section class="recap" id="recap" hidden>
-  <h2>3. Récapitulatif</h2>
-
+<dialog class="recap-dialog" id="recap" aria-labelledby="recap-titre">
   <div class="recap-carte">
     <div class="recap-haut">
       <span class="recap-icone">
         <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0B4F6C" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
       </span>
       <div>
-        <p class="recap-titre">Dossier complet et envoyé</p>
+        <h2 class="recap-titre" id="recap-titre">Dossier complet et envoyé</h2>
         <p class="recap-numero">N° de dossier : <strong id="recap-numero"></strong></p>
       </div>
     </div>
@@ -257,13 +255,15 @@
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
       Enregistrer le récapitulatif
     </button>
+
+    <button class="btn-fermer" type="button">Fermer</button>
   </div>
-</section>
+</dialog>
 </main>
 
 <footer class="footer">
   <p class="footer-titre">Besoin d'aide ?</p>
-  <p>Appelez le secrétariat : [TÉLÉPHONE]</p>
+  <p>Appelez le secrétariat : 0610151062</p>
   <div class="footer-centres">
     <p class="footer-titre">Nos centres</p>
     <p>Nador Centre · Hay Al Matar · Selouane</p>

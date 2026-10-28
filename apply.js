@@ -442,6 +442,7 @@ champMdp.addEventListener("blur", validerMdp);
 
 champMdp2.addEventListener("input", validerMdp2);
 champMdp2.addEventListener("blur", validerMdp2);
+
 // Étape 8 : afficher / masquer le mot de passe
 const btnAfficher = document.querySelector(".btn-afficher");
 
@@ -456,6 +457,7 @@ btnAfficher.addEventListener("click", function () {
     btnAfficher.setAttribute("aria-pressed", "false");
   }
 });
+
 // Étape 9 : le consentement
 const champConsent = document.querySelector("#consent");
 
@@ -470,3 +472,176 @@ function validerConsent() {
 }
 
 champConsent.addEventListener("change", validerConsent);
+
+// Étape 10a : l'envoi du dossier (cas d'erreur)
+const formulaire = document.querySelector("#formulaire");
+const resumeErreurs = document.querySelector(".resume-erreurs");
+const resumeTitre = document.querySelector(".resume-titre");
+const resumeListe = document.querySelector(".resume-erreurs ul");
+const blocSelection = document.querySelector("#selection");
+
+const validations = [
+  { champ: champParent, valider: validerParent, nom: "Nom et prénom du parent" },
+  { champ: champEmail, valider: validerEmail, nom: "Email" },
+  { champ: champTel, valider: validerTel, nom: "Téléphone mobile" },
+  { champ: champPrenom, valider: validerPrenom, nom: "Prénom de l'élève" },
+  { champ: champNiveau, valider: validerNiveau, nom: "Niveau de l'élève" },
+  { champ: champMdp, valider: validerMdp, nom: "Mot de passe" },
+  { champ: champMdp2, valider: validerMdp2, nom: "Confirmation du mot de passe" },
+  { champ: champConsent, valider: validerConsent, nom: "Consentement" }
+];
+
+function textePoints(nombre) {
+  if (nombre === 1) {
+    return "1 point à corriger";
+  }
+  return nombre + " points à corriger";
+}
+
+// Étape 10b : le récapitulatif en popup
+const popupRecap = document.querySelector("#recap");
+const recapNumero = document.querySelector("#recap-numero");
+const recapEleve = document.querySelector("#recap-eleve");
+const recapCours = document.querySelector("#recap-cours");
+const recapTotal = document.querySelector("#recap-total");
+const btnEnregistrer = document.querySelector(".btn-enregistrer");
+const btnFermer = document.querySelector(".btn-fermer");
+
+// Le dernier dossier envoyé, gardé pour le bouton « Enregistrer »
+let dernierDossier = null;
+
+function genererNumero() {
+  const annee = new Date().getFullYear();
+  const suffixe = String(Date.now()).slice(-6);
+  return "NA-" + annee + "-" + suffixe;
+}
+
+function remplirRecap() {
+  const niveauTexte = champNiveau.options[champNiveau.selectedIndex].text;
+
+  let total = 0;
+  const titres = [];
+  for (const c of selection) {
+    total = total + c.prix;
+    titres.push(c.titre);
+  }
+
+  dernierDossier = {
+    numero: genererNumero(),
+    parent: champParent.value.trim(),
+    eleve: champPrenom.value.trim() + " · " + niveauTexte,
+    cours: titres.join(" + "),
+    total: total + " MAD / mois"
+  };
+
+  // textContent : le prénom vient de l'utilisateur, il ne doit jamais être lu comme du HTML
+  recapNumero.textContent = dernierDossier.numero;
+  recapEleve.textContent = dernierDossier.eleve;
+  recapCours.textContent = dernierDossier.cours;
+  recapTotal.textContent = dernierDossier.total;
+}
+
+function reinitialiser() {
+  // Sinon, quitter le champ actif après la remise à zéro afficherait « obligatoire »
+  document.activeElement.blur();
+  formulaire.reset();
+
+  for (const bloc of formulaire.querySelectorAll(".champ-form")) {
+    bloc.classList.remove("champ-valide", "champ-erreur");
+    bloc.querySelector(".message").textContent = "";
+  }
+  for (const v of validations) {
+    v.champ.removeAttribute("aria-invalid");
+  }
+  for (const li of reglesMdp) {
+    li.classList.remove("regle-ok");
+    li.textContent = "○ " + li.textContent.slice(2);
+  }
+
+  champMdp.type = "password";
+  btnAfficher.textContent = "Afficher";
+  btnAfficher.setAttribute("aria-pressed", "false");
+
+  resumeErreurs.hidden = true;
+  resumeListe.innerHTML = "";
+
+  selection = [];
+  afficherSelection();
+  filtrer();
+}
+
+btnFermer.addEventListener("click", function () {
+  popupRecap.close();
+});
+
+// Un clic sur le fond sombre (en dehors de la carte) ferme aussi la popup
+popupRecap.addEventListener("click", function (event) {
+  if (event.target === popupRecap) {
+    popupRecap.close();
+  }
+});
+
+btnEnregistrer.addEventListener("click", function () {
+  if (dernierDossier === null) {
+    return;
+  }
+
+  const contenu = [
+    "Nour Academy — Récapitulatif d'inscription",
+    "",
+    "N° de dossier : " + dernierDossier.numero,
+    "Parent : " + dernierDossier.parent,
+    "Élève : " + dernierDossier.eleve,
+    "Cours : " + dernierDossier.cours,
+    "Total : " + dernierDossier.total,
+    "",
+    "Conservez ce numéro : le secrétariat vous le demandera."
+  ].join("\n");
+
+  const fichier = new Blob([contenu], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(fichier);
+  const lien = document.createElement("a");
+  lien.href = url;
+  lien.download = dernierDossier.numero + ".txt";
+  lien.click();
+  URL.revokeObjectURL(url);
+});
+
+formulaire.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const champsEnErreur = [];
+  for (const v of validations) {
+    if (!v.valider()) {
+      champsEnErreur.push(v);
+    }
+  }
+
+  const selectionVideErreur = selection.length === 0;
+  const nombreErreurs = champsEnErreur.length + (selectionVideErreur ? 1 : 0);
+
+  if (nombreErreurs > 0) {
+    let html = "";
+    if (selectionVideErreur) {
+      html += `<li><a href="#selection">Aucun cours sélectionné</a></li>`;
+    }
+    for (const v of champsEnErreur) {
+      html += `<li><a href="#${v.champ.id}">${v.nom}</a></li>`;
+    }
+
+    resumeTitre.textContent = "Dossier non envoyé : " + textePoints(nombreErreurs);
+    resumeListe.innerHTML = html;
+    resumeErreurs.hidden = false;
+
+    if (champsEnErreur.length > 0) {
+      champsEnErreur[0].champ.focus();
+    } else {
+      blocSelection.scrollIntoView({ behavior: "smooth" });
+    }
+    return;
+  }
+
+  remplirRecap();
+  reinitialiser();
+  popupRecap.showModal();
+});
