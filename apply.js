@@ -183,16 +183,12 @@ selectionListe.addEventListener("click", function (event) {
   filtrer();
 });
 
-// ===== Formulaire =====
-
-// Étape 1 : les règles de validation
 const regexNom = /^[A-Za-zÀ-ÿ'-]+(\s+[A-Za-zÀ-ÿ'-]+)+$/;
 const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const regexTel = /^(0|\+212)[67]\d{8}$/;
 const regexLettres = /^[A-Za-zÀ-ÿ'\s-]+$/;
 const regexMdp = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
-// Étape 2 : l'affichage des états (erreur / succès)
 function afficherErreur(champ, texte) {
   const bloc = champ.closest(".champ-form");
   const message = bloc.querySelector(".message");
@@ -213,7 +209,6 @@ function afficherSucces(champ, texte) {
   message.textContent = "✓ " + texte;
 }
 
-// Étape 3 : valider le nom du parent et l'email
 const champParent = document.querySelector("#parent");
 const champEmail = document.querySelector("#email");
 
@@ -257,7 +252,6 @@ function validerEmail() {
   return true;
 }
 
-// Étape 4 : valider le téléphone
 const champTel = document.querySelector("#tel");
 
 function texteChiffres(nombre) {
@@ -313,7 +307,6 @@ function validerTel() {
   return true;
 }
 
-// Étape 5 : valider pendant la saisie (parent)
 champParent.addEventListener("input", validerParent);
 champEmail.addEventListener("input", validerEmail);
 champTel.addEventListener("input", validerTel);
@@ -322,7 +315,6 @@ champParent.addEventListener("blur", validerParent);
 champEmail.addEventListener("blur", validerEmail);
 champTel.addEventListener("blur", validerTel);
 
-// Étape 6 : valider l'élève
 const champPrenom = document.querySelector("#prenom");
 const champNiveau = document.querySelector("#niveau");
 
@@ -362,7 +354,6 @@ champPrenom.addEventListener("blur", validerPrenom);
 champNiveau.addEventListener("change", validerNiveau);
 champNiveau.addEventListener("blur", validerNiveau);
 
-// Étape 7 : le mot de passe et sa confirmation
 const champMdp = document.querySelector("#mdp");
 const champMdp2 = document.querySelector("#mdp2");
 const reglesMdp = document.querySelectorAll(".regles li");
@@ -443,7 +434,6 @@ champMdp.addEventListener("blur", validerMdp);
 champMdp2.addEventListener("input", validerMdp2);
 champMdp2.addEventListener("blur", validerMdp2);
 
-// Étape 8 : afficher / masquer le mot de passe
 const btnAfficher = document.querySelector(".btn-afficher");
 
 btnAfficher.addEventListener("click", function () {
@@ -458,7 +448,6 @@ btnAfficher.addEventListener("click", function () {
   }
 });
 
-// Étape 9 : le consentement
 const champConsent = document.querySelector("#consent");
 
 function validerConsent() {
@@ -473,7 +462,6 @@ function validerConsent() {
 
 champConsent.addEventListener("change", validerConsent);
 
-// Étape 10a : l'envoi du dossier (cas d'erreur)
 const formulaire = document.querySelector("#formulaire");
 const resumeErreurs = document.querySelector(".resume-erreurs");
 const resumeTitre = document.querySelector(".resume-titre");
@@ -498,7 +486,6 @@ function textePoints(nombre) {
   return nombre + " points à corriger";
 }
 
-// Étape 10b : le récapitulatif en popup
 const popupRecap = document.querySelector("#recap");
 const recapNumero = document.querySelector("#recap-numero");
 const recapEleve = document.querySelector("#recap-eleve");
@@ -507,7 +494,6 @@ const recapTotal = document.querySelector("#recap-total");
 const btnEnregistrer = document.querySelector(".btn-enregistrer");
 const btnFermer = document.querySelector(".btn-fermer");
 
-// Le dernier dossier envoyé, gardé pour le bouton « Enregistrer »
 let dernierDossier = null;
 
 function genererNumero() {
@@ -534,7 +520,6 @@ function remplirRecap() {
     total: total + " MAD / mois"
   };
 
-  // textContent : le prénom vient de l'utilisateur, il ne doit jamais être lu comme du HTML
   recapNumero.textContent = dernierDossier.numero;
   recapEleve.textContent = dernierDossier.eleve;
   recapCours.textContent = dernierDossier.cours;
@@ -542,7 +527,6 @@ function remplirRecap() {
 }
 
 function reinitialiser() {
-  // Sinon, quitter le champ actif après la remise à zéro afficherait « obligatoire »
   document.activeElement.blur();
   formulaire.reset();
 
@@ -574,7 +558,6 @@ btnFermer.addEventListener("click", function () {
   popupRecap.close();
 });
 
-// Un clic sur le fond sombre (en dehors de la carte) ferme aussi la popup
 popupRecap.addEventListener("click", function (event) {
   if (event.target === popupRecap) {
     popupRecap.close();
